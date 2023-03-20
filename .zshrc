@@ -133,7 +133,7 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="]%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
-PROMPT='%{$fg[gray]%}[%~% ]%(?.%{$fg[white]%}.%{$fg[orange]%})%B$%b '
+export PS1='%n@%m:%F{red}%d%F{white}$ '
 
 export PATH=$PATH:/usr/local/go/bin:/home/tristan/.local/bin
 export EDITOR=/usr/bin/vim
