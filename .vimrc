@@ -1,5 +1,6 @@
 syntax on
-set tabstop=4
+set tabstop=2
+set shiftwidth=2
 filetype on
 set ruler
 set so=7
@@ -8,4 +9,9 @@ set number
 set relativenumber
 set smartcase
 
-colo elflord 
+colo gruvbox
+set background=dark
+
+hi Normal ctermbg=NONE guibg=NONE
+
+map ff G :r!date && echo "; "<CR> $a
