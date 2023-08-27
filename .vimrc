@@ -8,9 +8,9 @@ set autoindent
 set number
 set relativenumber
 set smartcase
+set expandtab
 
-colo gruvbox
-set background=dark
+colo industry 
 
 hi Normal ctermbg=NONE guibg=NONE
 
