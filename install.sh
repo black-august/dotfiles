@@ -1,7 +1,7 @@
 if command -v apt-get &> /dev/null; then
     sudo apt-get update -y
     sudo apt-get install -y fzf git tmux vim ripgrep curl \
-        gdb zsh-syntax-highlighting wireguard-tools zsh fd-find
+        gdb zsh-syntax-highlighting wireguard-tools zsh fd-find opensnitch kitty
 elif command -v dnf &> /dev/null; then
     sudo dnf update -y
     sudo dnf install -y fzf git tmux vim ripgrep curl \
@@ -16,6 +16,7 @@ git clone https://github.com/joshskidmore/zsh-fzf-history-search ~/.oh-my-zsh/pl
 
 cp .tmux.conf ~/.tmux.conf
 cp .vimrc ~/.vimrc
+cp kitty.conf ~/.config/kitty/kitty.conf
 
 chsh -s $(which zsh)
 
