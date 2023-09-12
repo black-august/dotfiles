@@ -34,3 +34,8 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 export EDITOR="vim"
 export TERM=screen-256color
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+
+function pb () {
+  xclip -sel clipboard
+}
+  
