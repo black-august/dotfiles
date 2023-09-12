@@ -17,6 +17,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 cp .zshrc ~/.zshrc
 cp .tmux.conf ~/.tmux.conf
 cp .vimrc ~/.vimrc
+cp -r .config/ ~/.config
 
 chsh -s $(which zsh)
 
