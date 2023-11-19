@@ -19,7 +19,7 @@ function install_dotfiles () {
 if command -v apt-get &> /dev/null; then
     sudo apt-get update -y
     sudo apt-get install -y fzf git tmux vim ripgrep curl \
-        gdb zsh-syntax-highlighting wireguard-tools zsh fd-find opensnitch kitty
+        gdb zsh-syntax-highlighting wireguard-tools zsh fd-find
 elif command -v dnf &> /dev/null; then
     sudo dnf update -y
     sudo dnf install -y fzf git tmux vim ripgrep curl \
