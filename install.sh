@@ -4,9 +4,11 @@ function install_zsh_and_plugins () {
 }
 
 function install_vim_plugins () {
-  mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+  mkdir -p ~/.vim/autoload ~/.vim/bundle 
+  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
   git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree || echo "Failed to install nerdtree"
-  git clone https://github.com/lilydjwg/colorizer ~/.vim/bundle || echo "Failed to install colorizer"
+  git clone https://github.com/lilydjwg/colorizer ~/.vim/bundle/colorizer || echo "Failed to install colorizer"
+  git clone https://github.com/jremmen/vim-ripgrep ~/.vim/bundle/vim-ripgrep || echo "Failed to install vim-rg"
 }
 
 function install_dotfiles () {
