@@ -6,8 +6,8 @@ function install_zsh_and_plugins () {
 function install_vim_plugins () {
   mkdir -p ~/.vim/autoload ~/.vim/bundle 
   curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-  git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree || echo "Failed to install nerdtree"
   git clone https://github.com/lilydjwg/colorizer ~/.vim/bundle/colorizer || echo "Failed to install colorizer"
+  git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree || echo "Failed to install nerdtree"
   git clone https://github.com/jremmen/vim-ripgrep ~/.vim/bundle/vim-ripgrep || echo "Failed to install vim-rg"
 }
 
@@ -17,6 +17,8 @@ function install_dotfiles () {
   cp .zshrc ~/.zshrc
   cp -r .config/ ~/.config
 }
+
+DEBIAN_FRONTEND=noninteractive
 
 if command -v apt-get &> /dev/null; then
     sudo apt-get update -y
