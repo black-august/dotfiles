@@ -50,6 +50,7 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;32m'
 export LESS_TERMCAP_ue=$'\e[0m'
 
+export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="vim"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
