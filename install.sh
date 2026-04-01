@@ -1,41 +1,57 @@
-function install_zsh_and_plugins () {
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-  git clone https://github.com/joshskidmore/zsh-fzf-history-search ~/.oh-my-zsh/plugins/zsh-fzf-history-search || echo "Failed to install fzf history search"
+#!/bin/bash
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+install_packages() {
+    export DEBIAN_FRONTEND=noninteractive
+    if command -v apt-get &> /dev/null; then
+        sudo apt-get update -y
+        sudo apt-get install -y fzf git tmux vim ripgrep curl \
+            gdb zsh-syntax-highlighting wireguard-tools zsh fd-find
+    elif command -v dnf &> /dev/null; then
+        sudo dnf update -y
+        sudo dnf install -y fzf git tmux vim ripgrep curl \
+            gdb zsh-syntax-highlighting wireguard-tools zsh fd-find
+    else
+        echo "Neither apt-get nor dnf package manager found on this system."
+        exit 1
+    fi
 }
 
-function install_vim_plugins () {
-  mkdir -p ~/.vim/autoload ~/.vim/bundle 
-  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-  git clone https://github.com/lilydjwg/colorizer ~/.vim/bundle/colorizer || echo "Failed to install colorizer"
-  git clone https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree || echo "Failed to install nerdtree"
-  git clone https://github.com/jremmen/vim-ripgrep ~/.vim/bundle/vim-ripgrep || echo "Failed to install vim-rg"
+install_uv() {
+    if command -v uv &> /dev/null; then
+        echo "uv already installed, skipping"
+        return
+    fi
+    curl -LsSf https://astral.sh/uv/install.sh | sh
 }
 
-function install_dotfiles () {
-  cp .tmux.conf ~/.tmux.conf
-  cp .vimrc ~/.vimrc
-  cp .zshrc ~/.zshrc
-  cp -r .config/ ~/.config
+install_zsh_plugins() {
+    mkdir -p ~/.zsh/plugins
+    if [[ ! -d ~/.zsh/plugins/zsh-fzf-history-search ]]; then
+        git clone https://github.com/joshskidmore/zsh-fzf-history-search \
+            ~/.zsh/plugins/zsh-fzf-history-search
+    fi
 }
 
-DEBIAN_FRONTEND=noninteractive
+link_dotfiles() {
+    ln -sf "$SCRIPT_DIR/.tmux.conf" ~/.tmux.conf
+    ln -sf "$SCRIPT_DIR/.vimrc" ~/.vimrc
+    ln -sf "$SCRIPT_DIR/.zshrc" ~/.zshrc
 
-if command -v apt-get &> /dev/null; then
-    sudo apt-get update -y
-    sudo apt-get install -y fzf git tmux vim ripgrep curl \
-        gdb zsh-syntax-highlighting wireguard-tools zsh fd-find
-elif command -v dnf &> /dev/null; then
-    sudo dnf update -y
-    sudo dnf install -y fzf git tmux vim ripgrep curl \
-        gdb zsh-syntax-highlighting wireguard-tools zsh fd-find
-else
-    echo "Neither apt-get nor dnf package manager found on this system."
-    exit 1
-fi
+    mkdir -p ~/.config/uv
+    ln -sf "$SCRIPT_DIR/uv.toml" ~/.config/uv/uv.toml
 
-install_zsh_and_plugins
-install_vim_plugins
-install_dotfiles
+    for item in "$SCRIPT_DIR/.config/"*; do
+        ln -sf "$item" ~/.config/"$(basename "$item")"
+    done
+}
 
-chsh -s $(which zsh)
+install_packages
+install_uv
+install_zsh_plugins
+link_dotfiles
+
+chsh -s "$(which zsh)"
 echo "All done..."

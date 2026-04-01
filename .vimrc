@@ -14,10 +14,4 @@ colo industry
 
 hi Normal ctermbg=NONE guibg=NONE
 
-execute pathogen#infect()
-
-nnoremap <C-e> :NERDTreeToggle<CR>
-nnoremap <C-q> :Rg<CR>
-nnoremap <C-g> :Rg 
-
 map ff G :r!date && echo "; "<CR> $a
